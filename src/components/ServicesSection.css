@@ -37,6 +37,7 @@
   padding: 0 2rem 3rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  align-items: start;
   gap: 1.25rem;
 }
 
@@ -45,31 +46,28 @@
 }
 
 .services__card {
-  padding: 2rem 1.75rem;
+  padding: 0 1.75rem 2rem;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: background 0.3s, color 0.3s, transform 0.3s;
+  background: transparent;
+  transition: background 0.3s, color 0.3s, padding 0.3s;
   cursor: default;
 }
 
 .services__card--active {
   background: var(--white);
   color: var(--black);
-  transform: translateY(-8px);
+  padding: 2rem 1.75rem;
 }
 
 .services__card-line {
   width: 100%;
   height: 1px;
-  background: currentColor;
-  opacity: 0.3;
+  background: rgba(255, 255, 255, 0.35);
   margin-bottom: 1.5rem;
 }
 
 .services__card--active .services__card-line {
-  opacity: 0.2;
+  display: none;
 }
 
 .services__card-title {
@@ -150,7 +148,6 @@
     padding: 0;
     border: none;
     backdrop-filter: none;
-    background: #1a1a1a;
     border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
@@ -159,9 +156,12 @@
   .services__card--active {
     background: var(--white);
     color: var(--black);
-    transform: none;
-    padding: 1.5rem;
+    padding: 1.5rem 1.25rem;
     border-radius: 6px;
+  }
+
+  .services__card--active .services__card-line {
+    display: none;
   }
 
   .services__card:not(.services__card--active) {

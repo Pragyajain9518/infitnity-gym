@@ -7,6 +7,7 @@
 }
 
 :root {
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --orange: #f26522;
   --orange-hover: #d9551a;
   --black: #0a0a0a;
@@ -21,7 +22,7 @@ html {
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--black);
   color: var(--white);
   line-height: 1.6;

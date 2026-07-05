@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Testimonials.css'
 
 const testimonials = [
@@ -8,15 +8,15 @@ const testimonials = [
     quote:
       'I was exhausted from generic HIIT classes that left me sore but never stronger. The personalized strength programming completely changed my physique and my energy levels.',
     result: '-14% Body Fat',
-    initials: 'DC',
+    image: '/hero.png',
   },
   {
     name: 'Sarah Jenkins',
     role: 'SOFTWARE ENGINEER',
     quote:
-      'I came to Infinity with zero gym experience and left six months later deadlifting 85lbs more than when I started. The coaches didn\'t just train me — they taught me how to move, eat, and recover like an athlete.',
+      'After 3 years of chronic back pain, I thought my lifting days were over. Infinity\'s biomechanics screening identified a severe imbalance in my kinetic chain. 12 weeks later, I\'m completely pain-free and pulling 405lbs off the floor.',
     result: '+85lbs Deadlift',
-    initials: 'SJ',
+    image: '/services-bg.png',
   },
   {
     name: 'Priya Sharma',
@@ -24,27 +24,46 @@ const testimonials = [
     quote:
       'As someone who understands movement, I was impressed by Infinity\'s focus on mechanics. They fixed my squat form and eliminated the knee pain I\'d had for years.',
     result: 'Pain-Free Squats',
-    initials: 'PS',
+    image: '/hero.png',
   },
   {
     name: 'Marcus Okonkwo',
     role: 'MILITARY VETERAN',
     quote:
-      'The holistic approach here is real — not just marketing. Training, nutrition, and recovery all work together. I\'m in the best shape of my life at 42.',
+      'The holistic approach here is real, not just marketing. Training, nutrition, and recovery all work together. I\'m in the best shape of my life at 42.',
     result: '+40lbs Bench Press',
-    initials: 'MO',
+    image: '/services-bg.png',
   },
 ]
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0)
+  const [cardWidth, setCardWidth] = useState(949)
   const total = testimonials.length
 
-  const goTo = (index) => setCurrent(index)
-  const prev = () => setCurrent((c) => (c - 1 + total) % total)
-  const next = () => setCurrent((c) => (c + 1) % total)
+  useEffect(() => {
+    const syncCardWidth = () => {
+      if (window.innerWidth <= 760) {
+        setCardWidth(Math.min(320, window.innerWidth - 48))
+        return
+      }
 
-  const t = testimonials[current]
+      setCardWidth(Math.min(949, window.innerWidth - 32))
+    }
+
+    syncCardWidth()
+    window.addEventListener('resize', syncCardWidth)
+
+    return () => window.removeEventListener('resize', syncCardWidth)
+  }, [])
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setCurrent((index) => (index + 1) % total)
+    }, 5000)
+
+    return () => window.clearInterval(timer)
+  }, [total])
 
   return (
     <section className="testimonials">
@@ -58,93 +77,64 @@ export default function Testimonials() {
         </h2>
 
         <div className="testimonials__slider">
-          <button
-            type="button"
-            className="testimonials__nav testimonials__nav--prev"
-            onClick={prev}
-            aria-label="Previous testimonial"
+          <div
+            className="testimonials__track"
+            style={{
+              transform: `translateX(calc(50vw - ${
+                current * (cardWidth + 10) + cardWidth / 2
+              }px))`,
+            }}
           >
-            ‹
-          </button>
-
-          <article className="testimonials__card">
-            <div className="testimonials__photo">
-              <span className="testimonials__initials">{t.initials}</span>
-            </div>
-
-            <div className="testimonials__body">
-              <div className="testimonials__mobile-head">
-                <div className="testimonials__photo-sm">
-                  <span>{t.initials}</span>
+            {testimonials.map((item, index) => (
+              <article
+                className={`testimonials__card ${
+                  index === current ? 'testimonials__card--active' : ''
+                }`}
+                key={item.name}
+                aria-hidden={index !== current}
+              >
+                <div className="testimonials__photo">
+                  <img src={item.image} alt="" />
+                  <span className="testimonials__corner testimonials__corner--tl" />
+                  <span className="testimonials__corner testimonials__corner--br" />
                 </div>
-                <div>
-                  <p className="testimonials__name">{t.name}</p>
-                  <p className="testimonials__role">{t.role}</p>
+
+                <div className="testimonials__body">
+                  <blockquote className="testimonials__quote">
+                    &quot;{item.quote}&quot;
+                  </blockquote>
+
+                  <div className="testimonials__meta">
+                    <div>
+                      <p className="testimonials__name">{item.name}</p>
+                      <p className="testimonials__role">{item.role}</p>
+                    </div>
+                    <div className="testimonials__divider" />
+                    <div>
+                      <span className="testimonials__result-label">KEY RESULT</span>
+                      <span className="testimonials__result-value">{item.result}</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
-
-              <p className="testimonials__metric">{t.result}</p>
-
-              <span className="testimonials__quote-mark" aria-hidden="true">
-                &ldquo;
-              </span>
-              <blockquote className="testimonials__quote">{t.quote}</blockquote>
-
-              <div className="testimonials__desktop-meta">
-                <p className="testimonials__name">{t.name}</p>
-                <p className="testimonials__role">{t.role}</p>
-                <div className="testimonials__result-block">
-                  <span className="testimonials__result-label">KEY RESULT</span>
-                  <span className="testimonials__result-value">{t.result}</span>
-                </div>
-              </div>
-
-              <div className="testimonials__card-footer">
-                <div className="testimonials__progress">
-                  <div
-                    className="testimonials__progress-fill"
-                    style={{ width: `${((current + 1) / total) * 100}%` }}
-                  />
-                </div>
-                <span className="testimonials__counter">
-                  {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-                </span>
-              </div>
-            </div>
-          </article>
-
-          <button
-            type="button"
-            className="testimonials__nav testimonials__nav--next"
-            onClick={next}
-            aria-label="Next testimonial"
-          >
-            ›
-          </button>
+              </article>
+            ))}
+          </div>
         </div>
 
-        <div className="testimonials__footer">
-          <div className="testimonials__progress">
-            <div
-              className="testimonials__progress-fill"
-              style={{ width: `${((current + 1) / total) * 100}%` }}
-            />
+        <div className="testimonials__footer" aria-label="Testimonial progress">
+          <div className="testimonials__segments">
+            {testimonials.map((item, index) => (
+              <span
+                key={item.name}
+                className={`testimonials__segment ${
+                  index === current ? 'testimonials__segment--active' : ''
+                }`}
+              />
+            ))}
           </div>
           <span className="testimonials__counter">
             {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
           </span>
-        </div>
-
-        <div className="testimonials__dots">
-          {testimonials.map((item, index) => (
-            <button
-              key={item.name}
-              type="button"
-              className={`testimonials__dot ${index === current ? 'testimonials__dot--active' : ''}`}
-              onClick={() => goTo(index)}
-              aria-label={`Go to testimonial ${index + 1}`}
-            />
-          ))}
         </div>
       </div>
     </section>
