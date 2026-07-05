@@ -6,6 +6,11 @@
   overflow: hidden;
 }
 
+.services__hero {
+  position: absolute;
+  inset: 0;
+}
+
 .services__bg {
   position: absolute;
   inset: 0;
@@ -33,6 +38,10 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
+}
+
+.services__desc-mobile {
+  display: none;
 }
 
 .services__card {
@@ -93,10 +102,6 @@
   color: var(--orange);
 }
 
-.services__card--active .services__card-link:hover {
-  color: var(--orange);
-}
-
 .services__card-icon {
   display: inline-flex;
   align-items: center;
@@ -105,23 +110,94 @@
   height: 22px;
   border-radius: 50%;
   border: 1.5px solid currentColor;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 400;
   line-height: 1;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .services {
     min-height: auto;
-    padding-top: 12rem;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--black);
+  }
+
+  .services__hero {
+    position: relative;
+    height: 42vh;
+    min-height: 260px;
+    flex-shrink: 0;
+  }
+
+  .services__overlay {
+    background: linear-gradient(
+      to bottom,
+      transparent 40%,
+      rgba(10, 10, 10, 0.6) 100%
+    );
   }
 
   .services__cards {
+    position: relative;
+    margin-top: -2rem;
     grid-template-columns: 1fr;
     padding: 0 1.25rem 2.5rem;
+    gap: 0.75rem;
+  }
+
+  .services__card {
+    padding: 0;
+    border: none;
+    backdrop-filter: none;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
   }
 
   .services__card--active {
+    background: var(--white);
+    color: var(--black);
     transform: none;
+    padding: 1.5rem;
+    border-radius: 6px;
+  }
+
+  .services__card:not(.services__card--active) {
+    padding: 1rem 1.25rem;
+    text-align: center;
+  }
+
+  .services__card:not(.services__card--active) .services__card-line,
+  .services__card:not(.services__card--active) .services__card-desc,
+  .services__card:not(.services__card--active) .services__card-link {
+    display: none;
+  }
+
+  .services__card:not(.services__card--active) .services__card-title {
+    margin-bottom: 0;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  .services__desc-mobile {
+    display: inline;
+  }
+
+  .services__desc-desktop {
+    display: none;
+  }
+
+  .services__card--active .services__card-desc {
+    margin-bottom: 1.25rem;
+    font-size: 0.8125rem;
+    color: #333;
+  }
+
+  .services__card--active .services__card-title {
+    font-size: 1.125rem;
+    margin-bottom: 0.75rem;
   }
 }

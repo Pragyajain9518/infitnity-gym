@@ -4,22 +4,22 @@ const valueFeatures = [
   {
     title: 'Limited Capacity',
     description:
-      'Small class sizes mean you always get the attention and coaching you deserve.',
+      'Only 12 clients at a time for a premium, distraction-free space.',
   },
   {
     title: 'Expert Coaches',
     description:
-      'Certified trainers with years of experience in strength, mobility, and performance.',
+      'Multi-certified coaches who correct, guide, and educate.',
   },
   {
     title: 'Movement Mechanics',
     description:
-      'We teach proper form first — so you train harder, safer, and without injury.',
+      'Strong focus on posture, movement, and injury prevention.',
   },
   {
     title: 'Holistic Approach',
     description:
-      'Training, nutrition, recovery, and mindset — everything you need under one roof.',
+      'Highly personalized lifestyle coaching for lasting change.',
   },
 ]
 

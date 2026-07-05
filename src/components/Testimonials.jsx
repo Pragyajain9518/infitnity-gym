@@ -3,20 +3,20 @@ import './Testimonials.css'
 
 const testimonials = [
   {
+    name: 'David Chen',
+    role: 'ENTREPRENEUR',
+    quote:
+      'I was exhausted from generic HIIT classes that left me sore but never stronger. The personalized strength programming completely changed my physique and my energy levels.',
+    result: '-14% Body Fat',
+    initials: 'DC',
+  },
+  {
     name: 'Sarah Jenkins',
     role: 'SOFTWARE ENGINEER',
     quote:
       'I came to Infinity with zero gym experience and left six months later deadlifting 85lbs more than when I started. The coaches didn\'t just train me — they taught me how to move, eat, and recover like an athlete.',
     result: '+85lbs Deadlift',
     initials: 'SJ',
-  },
-  {
-    name: 'Marcus Chen',
-    role: 'ENTREPRENEUR',
-    quote:
-      'Between running a business and family life, I needed a gym that respected my time. Infinity\'s structured programs and limited class sizes meant every session counted.',
-    result: '-22lbs Body Fat',
-    initials: 'MC',
   },
   {
     name: 'Priya Sharma',
@@ -27,12 +27,12 @@ const testimonials = [
     initials: 'PS',
   },
   {
-    name: 'David Okonkwo',
+    name: 'Marcus Okonkwo',
     role: 'MILITARY VETERAN',
     quote:
       'The holistic approach here is real — not just marketing. Training, nutrition, and recovery all work together. I\'m in the best shape of my life at 42.',
     result: '+40lbs Bench Press',
-    initials: 'DO',
+    initials: 'MO',
   },
 ]
 
@@ -71,16 +71,44 @@ export default function Testimonials() {
             <div className="testimonials__photo">
               <span className="testimonials__initials">{t.initials}</span>
             </div>
-            <div className="testimonials__content">
+
+            <div className="testimonials__body">
+              <div className="testimonials__mobile-head">
+                <div className="testimonials__photo-sm">
+                  <span>{t.initials}</span>
+                </div>
+                <div>
+                  <p className="testimonials__name">{t.name}</p>
+                  <p className="testimonials__role">{t.role}</p>
+                </div>
+              </div>
+
+              <p className="testimonials__metric">{t.result}</p>
+
               <span className="testimonials__quote-mark" aria-hidden="true">
                 &ldquo;
               </span>
               <blockquote className="testimonials__quote">{t.quote}</blockquote>
-              <p className="testimonials__name">{t.name}</p>
-              <p className="testimonials__role">{t.role}</p>
-              <div className="testimonials__result">
-                <span className="testimonials__result-label">KEY RESULT</span>
-                <span className="testimonials__result-value">{t.result}</span>
+
+              <div className="testimonials__desktop-meta">
+                <p className="testimonials__name">{t.name}</p>
+                <p className="testimonials__role">{t.role}</p>
+                <div className="testimonials__result-block">
+                  <span className="testimonials__result-label">KEY RESULT</span>
+                  <span className="testimonials__result-value">{t.result}</span>
+                </div>
+              </div>
+
+              <div className="testimonials__card-footer">
+                <div className="testimonials__progress">
+                  <div
+                    className="testimonials__progress-fill"
+                    style={{ width: `${((current + 1) / total) * 100}%` }}
+                  />
+                </div>
+                <span className="testimonials__counter">
+                  {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+                </span>
               </div>
             </div>
           </article>

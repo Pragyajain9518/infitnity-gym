@@ -69,6 +69,20 @@
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 0;
+    background: var(--black);
+  }
+
+  .navbar__inner {
+    padding: 0 1.5rem;
+  }
+
+  .navbar__logo {
+    font-size: 1.125rem;
+    letter-spacing: 0.12em;
+  }
+
   .navbar__toggle {
     display: flex;
   }

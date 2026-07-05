@@ -41,6 +41,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  color: var(--orange);
   margin-bottom: 1.25rem;
 }
 
@@ -88,12 +89,23 @@
 
 @media (max-width: 768px) {
   .footer {
-    padding: 3rem 1.25rem 1.5rem;
+    padding: 2.5rem 1.5rem 1.5rem;
   }
 
   .footer__top {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer__logo {
+    font-size: clamp(2.5rem, 12vw, 3.5rem);
+    letter-spacing: 0.08em;
+  }
+
+  .footer__tagline {
+    font-size: 0.8125rem;
+    max-width: 100%;
   }
 
   .footer__links {
@@ -101,8 +113,23 @@
     gap: 3rem;
   }
 
+  .footer__col-title {
+    font-size: 0.6875rem;
+    margin-bottom: 1rem;
+  }
+
+  .footer__col a {
+    font-size: 0.8125rem;
+  }
+
   .footer__bottom {
     flex-direction: column;
     align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .footer__impact {
+    align-self: center;
+    font-size: 0.625rem;
   }
 }

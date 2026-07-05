@@ -75,7 +75,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
 .testimonials__initials {
@@ -85,10 +84,15 @@
   letter-spacing: 0.05em;
 }
 
-.testimonials__content {
-  position: relative;
+.testimonials__body {
   display: flex;
   flex-direction: column;
+}
+
+.testimonials__mobile-head,
+.testimonials__metric,
+.testimonials__card-footer {
+  display: none;
 }
 
 .testimonials__quote-mark {
@@ -103,8 +107,8 @@
   font-size: 0.875rem;
   line-height: 1.8;
   color: var(--gray);
-  margin-bottom: 1.5rem;
   flex: 1;
+  margin-bottom: 1.5rem;
 }
 
 .testimonials__name {
@@ -171,27 +175,81 @@
 
 @media (max-width: 768px) {
   .testimonials {
-    padding: 4rem 1.25rem;
+    padding: 3rem 1.5rem;
   }
 
-  .testimonials__nav {
+  .testimonials__title {
+    font-size: clamp(1.25rem, 6vw, 1.75rem);
+    margin-bottom: 2rem;
+  }
+
+  .testimonials__nav,
+  .testimonials__footer,
+  .testimonials__photo,
+  .testimonials__quote-mark,
+  .testimonials__desktop-meta {
     display: none;
   }
 
   .testimonials__card {
     grid-template-columns: 1fr;
-    padding: 1.5rem;
+    padding: 1.25rem;
+    border-radius: 10px;
+    min-height: auto;
   }
 
-  .testimonials__photo {
-    max-width: 120px;
+  .testimonials__mobile-head {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .testimonials__photo-sm {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--gray-dark);
+  }
+
+  .testimonials__mobile-head .testimonials__role {
+    margin-bottom: 0;
+  }
+
+  .testimonials__metric {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .testimonials__quote {
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 1.5rem;
+  }
+
+  .testimonials__card-footer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
   .testimonials__dots {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
   }
 
   .testimonials__dot {

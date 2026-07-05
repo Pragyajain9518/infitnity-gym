@@ -5,6 +5,8 @@ const services = [
   {
     title: 'Personal Training',
     description:
+      'Fully personalized coaching with complete attention to your form, progress, goals, and overall lifestyle.',
+    descriptionDesktop:
       'One-on-one sessions with certified coaches who build programs around your body, goals, and schedule.',
   },
   {
@@ -24,8 +26,10 @@ export default function ServicesSection() {
 
   return (
     <section id="programs" className="services">
-      <div className="services__bg" />
-      <div className="services__overlay" />
+      <div className="services__hero">
+        <div className="services__bg" />
+        <div className="services__overlay" />
+      </div>
 
       <div className="services__cards">
         {services.map((service, index) => (
@@ -34,15 +38,27 @@ export default function ServicesSection() {
             className={`services__card ${index === activeIndex ? 'services__card--active' : ''}`}
             onMouseEnter={() => setActiveIndex(index)}
             onFocus={() => setActiveIndex(index)}
+            onClick={() => setActiveIndex(index)}
             tabIndex={0}
           >
             <div className="services__card-line" />
             <h3 className="services__card-title">{service.title}</h3>
-            <p className="services__card-desc">{service.description}</p>
+            <p className="services__card-desc">
+              {service.descriptionDesktop && index === 0 ? (
+                <>
+                  <span className="services__desc-mobile">{service.description}</span>
+                  <span className="services__desc-desktop">
+                    {service.descriptionDesktop}
+                  </span>
+                </>
+              ) : (
+                service.description
+              )}
+            </p>
             <a href="#about" className="services__card-link">
               Know More
               <span className="services__card-icon" aria-hidden="true">
-                +
+                →
               </span>
             </a>
           </article>
