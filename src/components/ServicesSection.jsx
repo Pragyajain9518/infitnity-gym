@@ -55,7 +55,7 @@ export default function ServicesSection() {
                 service.description
               )}
             </p>
-            <a href="#about" className="services__card-link">
+            <a href="#services" className="services__card-link">
               Know More
               <span className="services__card-icon" aria-hidden="true">
                 →

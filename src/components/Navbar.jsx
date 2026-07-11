@@ -3,9 +3,11 @@ import './Navbar.css'
 
 const navLinks = [
   { label: 'Home', href: '#home' },
-  { label: 'About', href: '#about' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Programs', href: '#programs' },
+  { label: 'Services', href: '#services' },
+  {label: 'Coaches', href: '#coaches' },
+  { label: 'About Us', href: '#about' },
+  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'Contact Us', href: '#contact' },
 ]
 
 export default function Navbar() {
