@@ -29,8 +29,11 @@ export default function ValueSection() {
       <div className="value__inner">
         <div className="value__text">
           <h2 className="value__title">
-            DESIGNED FOR PEOPLE WHO WANT{' '}
-            <span className="value__highlight">MORE FROM FITNESS.</span>
+            <span className="value__line">DESIGNED FOR</span>
+            <span className="value__line">PEOPLE WHO</span>
+            <span className="value__line">WANT</span>
+            <span className="value__line value__highlight">MORE FROM</span>
+            <span className="value__line value__highlight">FITNESS.</span>
           </h2>
           <p className="value__description">
             Infinity isn&apos;t just a gym — it&apos;s a complete ecosystem for
@@ -44,9 +47,15 @@ export default function ValueSection() {
           {valueFeatures.map((feature) => (
             <li key={feature.title} className="value__item">
               <span className="value__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" width="20" height="20">
-                  <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="1.5" />
-                  <circle cx="12" cy="12" r="3" fill="currentColor" />
+                <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
+                  <circle cx="12" cy="12" r="11" stroke="currentColor" strokeWidth="1" />
+                  <path
+                    d="M8 12.2l2.6 2.6L16.2 9.2"
+                    stroke="currentColor"
+                    strokeWidth="1.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
               </span>
               <div>

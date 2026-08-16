@@ -8,15 +8,10 @@ const features = [
 
 export default function FeatureSection() {
   return (
-    <section id="about" className="features">
+    <section id="home-about" className="features">
       <div className="features__inner">
         <div className="features__text">
-          <h2 className="features__title features__title--desktop">
-            STOP GUESSING. START{' '}
-            <span className="features__highlight">PROGRESSING.</span>
-          </h2>
-
-          <h2 className="features__title features__title--mobile" aria-hidden="true">
+          <h2 className="features__title">
             <span className="features__line features__line--white">STOP</span>
             <span className="features__line features__line--muted">GUESSING.</span>
             <span className="features__line features__line--white">START</span>
@@ -36,20 +31,22 @@ export default function FeatureSection() {
               week after week.
             </span>
           </p>
-
-          <div className="features__divider" aria-hidden="true" />
         </div>
 
-        <ol className="features__list">
-          {features.map((feature, index) => (
-            <li key={feature} className="features__item">
-              <span className="features__number">
-                {String(index + 1).padStart(2, '0')} /
-              </span>
-              <span className="features__text-item">{feature}</span>
-            </li>
-          ))}
-        </ol>
+        <div className="features__aside">
+          <div className="features__divider" aria-hidden="true" />
+
+          <ol className="features__list">
+            {features.map((feature, index) => (
+              <li key={feature} className="features__item">
+                <span className="features__number">
+                  {String(index + 1).padStart(2, '0')} /
+                </span>
+                <span className="features__text-item">{feature}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   )

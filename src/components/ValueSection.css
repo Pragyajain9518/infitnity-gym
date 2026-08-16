@@ -1,6 +1,6 @@
 .value {
   background: var(--black);
-  padding: 6rem 2rem;
+  padding: 6rem 4rem;
 }
 
 .value__inner {
@@ -13,11 +13,13 @@
 }
 
 .value__title {
+  display: flex;
+  flex-direction: column;
   font-size: clamp(1.75rem, 4vw, 2.75rem);
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.1;
   letter-spacing: 0.02em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .value__highlight {
@@ -45,20 +47,21 @@
 
 .value__icon {
   flex-shrink: 0;
-  color: var(--orange);
-  margin-top: 0.15rem;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: 0.1rem;
 }
 
 .value__item-title {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 0.35rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  margin-bottom: 0.5rem;
 }
 
 .value__item-desc {
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--gray);
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 @media (max-width: 768px) {

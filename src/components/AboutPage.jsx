@@ -1,5 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import './AboutPage.css'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const pillars = [
   {
@@ -45,17 +49,35 @@ const pillars = [
 ]
 
 export default function AboutPage() {
-  const [activePillar, setActivePillar] = useState(0)
+  const sliderRef = useRef(null)
+  const trackRef = useRef(null)
 
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setActivePillar((index) => (index + 1) % pillars.length)
-    }, 4500)
+  useLayoutEffect(() => {
+    const slider = sliderRef.current
+    const track = trackRef.current
+    if (!slider || !track) return
 
-    return () => window.clearInterval(timer)
+    const ctx = gsap.context(() => {
+      // Distance the track must travel to bring the last slide flush left.
+      const distance = () => track.scrollWidth - window.innerWidth
+
+      gsap.to(track, {
+        x: () => -distance(),
+        ease: 'none',
+        scrollTrigger: {
+          trigger: slider,
+          start: 'top top',
+          end: () => `+=${distance()}`,
+          pin: true,
+          scrub: 1,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      })
+    }, slider)
+
+    return () => ctx.revert()
   }, [])
-
-  const pillar = pillars[activePillar]
 
   return (
     <main className="about-page">
@@ -69,9 +91,7 @@ export default function AboutPage() {
             TYPICAL <span>GYM.</span>
           </h1>
           <p>
-            We combine private coaching, corrective movement, and lifestyle
-            support into a training experience built around real people and real
-            results.
+       You show up consistently. You work hard. But without the right guidance, progress can feel stagnant. That's why we focus on personalized coaching, thoughtful progression, and support that meets you where you are for long-term strength.
           </p>
           <div className="about-hero__actions">
             <a href="#services-plan" className="about-page__button">
@@ -84,58 +104,46 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="about-slider" id="services-method">
-        <article className="about-slide" key={pillar.title}>
-          <div className="about-slide__copy">
-            <span className="about-page__eyebrow">{pillar.eyebrow}</span>
-            <h2>{pillar.title}</h2>
-            <p>{pillar.copy}</p>
-            <ul>
-              <li>Personal assessment before programming</li>
-              <li>Progressions matched to your body and schedule</li>
-              <li>Clear targets, coaching feedback, and accountability</li>
-            </ul>
-            <a href="#services-plan" className="about-slide__link">
-              Learn More
-            </a>
-            <span className="about-slide__number">{pillar.number}</span>
-          </div>
+      <section className="about-slider" id="services-method" ref={sliderRef}>
+        <div className="about-slider__track" ref={trackRef}>
+          {pillars.map((pillar) => (
+            <article className="about-slide" key={pillar.title}>
+              <div className="about-slide__inner">
+                <div className="about-slide__copy">
+                  <span className="about-page__eyebrow">{pillar.eyebrow}</span>
+                  <h2>{pillar.title}</h2>
+                  <p>{pillar.copy}</p>
+                  <ul>
+                    <li>Personal assessment before programming</li>
+                    <li>Progressions matched to your body and schedule</li>
+                    <li>Clear targets, coaching feedback, and accountability</li>
+                  </ul>
+                  <a href="#services-plan" className="about-slide__link">
+                    Learn More
+                  </a>
+                  <span className="about-slide__number">{pillar.number}</span>
+                </div>
 
-          <div className="about-slide__media">
-            <img src={pillar.image} alt="" />
-          </div>
-        </article>
-
-        <div className="about-slider__footer" aria-label="Services section progress">
-          <div className="about-slider__segments">
-            {pillars.map((item, index) => (
-              <button
-                className={`about-slider__segment ${
-                  index === activePillar ? 'about-slider__segment--active' : ''
-                }`}
-                key={item.title}
-                type="button"
-                aria-label={`Show ${item.title}`}
-                onClick={() => setActivePillar(index)}
-              />
-            ))}
-          </div>
-          <span className="about-slider__counter">
-            {String(activePillar + 1).padStart(2, '0')} /{' '}
-            {String(pillars.length).padStart(2, '0')}
-          </span>
+                <div className="about-slide__media">
+                  <img src={pillar.image} alt="" />
+                </div>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
       <section className="about-plan" id="services-plan">
-        <span className="about-page__eyebrow">Your Goals Deserve A Plan.</span>
-        <h2>Start here.</h2>
-        <p>
-          Book a consultation and we will map the first step around your goals,
-          history, and current capacity.
-        </p>
-        <a href="#contact" className="about-page__button">
-          Consult Today
+        <h2>
+          <span className="about-plan__line">Your Goals Deserve A Plan.</span>
+          <span className="about-plan__line about-plan__line--accent">
+            START HERE.
+          </span>
+        </h2>
+        <p>Personalized Coaching Built Around Your Body, Goals, And Lifestyle.</p>
+        <a href="#contact" className="about-plan__cta">
+          Let&apos;s Chat
+          <span aria-hidden="true">→</span>
         </a>
       </section>
     </main>

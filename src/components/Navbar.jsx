@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './Navbar.css'
 
 const navLinks = [
-  { label: 'Home', href: '#home' },
+  // { label: 'Home', href: '#home' },
   { label: 'Services', href: '#services' },
   {label: 'Coaches', href: '#coaches' },
   { label: 'About Us', href: '#about' },

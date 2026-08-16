@@ -37,9 +37,16 @@ const testimonials = [
 ]
 
 export default function Testimonials() {
-  const [current, setCurrent] = useState(0)
-  const [cardWidth, setCardWidth] = useState(949)
+  const [trackIndex, setTrackIndex] = useState(1)
+  const [transitionEnabled, setTransitionEnabled] = useState(true)
+  const [cardWidth, setCardWidth] = useState(760)
   const total = testimonials.length
+  const carouselItems = [
+    testimonials[total - 1],
+    ...testimonials,
+    testimonials[0],
+  ]
+  const current = (trackIndex - 1 + total) % total
 
   useEffect(() => {
     const syncCardWidth = () => {
@@ -48,7 +55,7 @@ export default function Testimonials() {
         return
       }
 
-      setCardWidth(Math.min(949, window.innerWidth - 32))
+      setCardWidth(Math.min(760, window.innerWidth - 220))
     }
 
     syncCardWidth()
@@ -59,11 +66,22 @@ export default function Testimonials() {
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      setCurrent((index) => (index + 1) % total)
+      setTrackIndex((index) => index + 1)
     }, 5000)
 
     return () => window.clearInterval(timer)
   }, [total])
+
+  const handleTransitionEnd = () => {
+    if (trackIndex !== total + 1 && trackIndex !== 0) return
+
+    setTransitionEnabled(false)
+    setTrackIndex(trackIndex === total + 1 ? 1 : total)
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => setTransitionEnabled(true))
+    })
+  }
 
   return (
     <section className="testimonials">
@@ -78,20 +96,23 @@ export default function Testimonials() {
 
         <div className="testimonials__slider">
           <div
-            className="testimonials__track"
+            className={`testimonials__track ${
+              transitionEnabled ? '' : 'testimonials__track--no-transition'
+            }`}
+            onTransitionEnd={handleTransitionEnd}
             style={{
               transform: `translateX(calc(50vw - ${
-                current * (cardWidth + 10) + cardWidth / 2
+                trackIndex * (cardWidth + 10) + cardWidth / 2
               }px))`,
             }}
           >
-            {testimonials.map((item, index) => (
+            {carouselItems.map((item, index) => (
               <article
                 className={`testimonials__card ${
-                  index === current ? 'testimonials__card--active' : ''
+                  index === trackIndex ? 'testimonials__card--active' : ''
                 }`}
-                key={item.name}
-                aria-hidden={index !== current}
+                key={`${item.name}-${index}`}
+                aria-hidden={index !== trackIndex}
               >
                 <div className="testimonials__photo">
                   <img src={item.image} alt="" />

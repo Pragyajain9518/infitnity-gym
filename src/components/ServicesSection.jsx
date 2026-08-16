@@ -8,16 +8,19 @@ const services = [
       'Fully personalized coaching with complete attention to your form, progress, goals, and overall lifestyle.',
     descriptionDesktop:
       'One-on-one sessions with certified coaches who build programs around your body, goals, and schedule.',
+    image: '/services-bg.png',
   },
   {
     title: 'Lifestyle Coaching',
     description:
       'Beyond the gym — we help you build sustainable habits for sleep, stress, and daily movement.',
+    image: '/hero.png',
   },
   {
     title: 'Nutrition Coaching',
     description:
       'Personalized meal plans and macro guidance to fuel your training and accelerate results.',
+    image: '/about-hero.png',
   },
 ]
 
@@ -27,7 +30,13 @@ export default function ServicesSection() {
   return (
     <section id="programs" className="services">
       <div className="services__hero">
-        <div className="services__bg" />
+        {services.map((service, index) => (
+          <div
+            key={service.title}
+            className={`services__bg ${index === activeIndex ? 'services__bg--active' : ''}`}
+            style={{ backgroundImage: `url('${service.image}')` }}
+          />
+        ))}
         <div className="services__overlay" />
       </div>
 

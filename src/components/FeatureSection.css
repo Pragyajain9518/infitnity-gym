@@ -1,6 +1,6 @@
 .features {
   background: var(--black);
-  padding: 5rem 2rem;
+  padding: 5rem 4rem;
 }
 
 .features__inner {
@@ -9,22 +9,28 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
-  align-items: center;
-}
-
-.features__title--mobile {
-  display: none;
+  align-items: start;
 }
 
 .features__title {
+  display: flex;
+  flex-direction: column;
   font-size: clamp(1.75rem, 4vw, 2.75rem);
   font-weight: 900;
-  line-height: 1.2;
+  line-height: 1.1;
   letter-spacing: 0.02em;
   margin-bottom: 1.5rem;
 }
 
-.features__highlight {
+.features__line--white {
+  color: var(--white);
+}
+
+.features__line--muted {
+  color: #4a4a4a;
+}
+
+.features__line--orange {
   color: var(--orange);
 }
 
@@ -40,7 +46,10 @@
 }
 
 .features__divider {
-  display: none;
+  width: 140px;
+  height: 2px;
+  background: var(--orange);
+  margin-bottom: 2.5rem;
 }
 
 .features__list {
@@ -60,26 +69,16 @@
 }
 
 .features__number {
-  display: none;
   flex-shrink: 0;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--orange);
   letter-spacing: 0.02em;
+  margin-top: 0.2rem;
 }
 
 .features__text-item {
   flex: 1;
-}
-
-.features__item::before {
-  content: '';
-  flex-shrink: 0;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--orange);
-  margin-top: 0.45rem;
 }
 
 @media (max-width: 768px) {
@@ -92,28 +91,10 @@
     gap: 2rem;
   }
 
-  .features__title--desktop {
-    display: none;
-  }
-
-  .features__title--mobile {
-    display: flex;
-    flex-direction: column;
+  .features__title {
     font-size: clamp(2rem, 10vw, 2.75rem);
     line-height: 1.05;
     margin-bottom: 1.25rem;
-  }
-
-  .features__line--white {
-    color: var(--white);
-  }
-
-  .features__line--muted {
-    color: #4a4a4a;
-  }
-
-  .features__line--orange {
-    color: var(--orange);
   }
 
   .features__desc--mobile {
@@ -132,19 +113,8 @@
   }
 
   .features__divider {
-    display: block;
     width: 48px;
-    height: 2px;
-    background: var(--orange);
     margin-bottom: 2rem;
-  }
-
-  .features__item::before {
-    display: none;
-  }
-
-  .features__number {
-    display: inline;
   }
 
   .features__text-item {
