@@ -1,75 +1,74 @@
 import { useState } from 'react'
+import assets from '../assets/design-assets.json'
 import './ServicesSection.css'
-
 const services = [
-  {
-    title: 'Personal Training',
-    description:
-      'Fully personalized coaching with complete attention to your form, progress, goals, and overall lifestyle.',
-    descriptionDesktop:
-      'One-on-one sessions with certified coaches who build programs around your body, goals, and schedule.',
-    image: '/services-bg.png',
-  },
-  {
-    title: 'Lifestyle Coaching',
-    description:
-      'Beyond the gym — we help you build sustainable habits for sleep, stress, and daily movement.',
-    image: '/hero.png',
-  },
-  {
-    title: 'Nutrition Coaching',
-    description:
-      'Personalized meal plans and macro guidance to fuel your training and accelerate results.',
-    image: '/about-hero.png',
-  },
+  [
+    'Personal Training',
+    'Fully personalized coaching with complete attention to your form, progress, goals, and overall lifestyle.',
+    assets['1:2531'].imgImagePersonalTraining,
+  ],
+  [
+    'Lifestyle Coaching',
+    'Expert guidance for hormonal balance, stress, sleep, and sustainable lifestyle changes.',
+    assets['1:3327'].imgImageLifestyleCoaching,
+  ],
+  [
+    'Nutrition Coaching',
+    'Sports and clinical nutrition to help you perform better, recover faster, and build your ideal body.',
+    assets['1:3370'].imgImageNutritionCoaching,
+  ],
 ]
-
 export default function ServicesSection() {
-  const [activeIndex, setActiveIndex] = useState(0)
-
+  const [active, setActive] = useState(0)
   return (
-    <section id="programs" className="services">
-      <div className="services__hero">
-        {services.map((service, index) => (
+    <section
+      className="services"
+      id="programs"
+      aria-label="Training and coaching"
+    >
+      <div className="services__hero" aria-hidden="true">
+        {services.map(([title, , image], index) => (
           <div
-            key={service.title}
-            className={`services__bg ${index === activeIndex ? 'services__bg--active' : ''}`}
-            style={{ backgroundImage: `url('${service.image}')` }}
-          />
-        ))}
-        <div className="services__overlay" />
-      </div>
-
-      <div className="services__cards">
-        {services.map((service, index) => (
-          <article
-            key={service.title}
-            className={`services__card ${index === activeIndex ? 'services__card--active' : ''}`}
-            onMouseEnter={() => setActiveIndex(index)}
-            onFocus={() => setActiveIndex(index)}
-            onClick={() => setActiveIndex(index)}
-            tabIndex={0}
+            className={`services__bg services__bg--${index} ${active === index ? 'is-active' : ''}`}
+            key={title}
           >
-            <div className="services__card-line" />
-            <h3 className="services__card-title">{service.title}</h3>
-            <p className="services__card-desc">
-              {service.descriptionDesktop && index === 0 ? (
-                <>
-                  <span className="services__desc-mobile">{service.description}</span>
-                  <span className="services__desc-desktop">
-                    {service.descriptionDesktop}
-                  </span>
-                </>
-              ) : (
-                service.description
-              )}
-            </p>
-            <a href="#services" className="services__card-link">
-              Know More
-              <span className="services__card-icon" aria-hidden="true">
-                →
-              </span>
-            </a>
+            <img src={image} alt="" loading="lazy" />
+          </div>
+        ))}
+      </div>
+      <div className="container services__cards">
+        {services.map(([title, description], index) => (
+          <article
+            className={`services__card ${active === index ? 'is-active' : ''}`}
+            key={title}
+            onMouseEnter={() => setActive(index)}
+            onFocus={() => setActive(index)}
+          >
+            <h2>
+              <button
+                onClick={() => setActive(index)}
+                aria-expanded={active === index}
+                aria-controls={`service-preview-${index}`}
+              >
+                {title}
+              </button>
+            </h2>
+            <div id={`service-preview-${index}`} className="services__detail">
+              <p>{description}</p>
+              <a href="#services">
+                Know More{' '}
+                <span>
+                  <img
+                    src={
+                      active === index
+                        ? assets['1:2531'].imgIcon
+                        : assets['1:2531'].imgIcon1
+                    }
+                    alt=""
+                  />
+                </span>
+              </a>
+            </div>
           </article>
         ))}
       </div>

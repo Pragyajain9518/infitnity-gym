@@ -1,162 +1,126 @@
 import { useEffect, useState } from 'react'
+import assets from '../assets/design-assets.json'
 import './Testimonials.css'
-
-const testimonials = [
-  {
-    name: 'David Chen',
-    role: 'ENTREPRENEUR',
-    quote:
-      'I was exhausted from generic HIIT classes that left me sore but never stronger. The personalized strength programming completely changed my physique and my energy levels.',
-    result: '-14% Body Fat',
-    image: '/hero.png',
-  },
-  {
-    name: 'Sarah Jenkins',
-    role: 'SOFTWARE ENGINEER',
-    quote:
-      'After 3 years of chronic back pain, I thought my lifting days were over. Infinity\'s biomechanics screening identified a severe imbalance in my kinetic chain. 12 weeks later, I\'m completely pain-free and pulling 405lbs off the floor.',
-    result: '+85lbs Deadlift',
-    image: '/services-bg.png',
-  },
-  {
-    name: 'Priya Sharma',
-    role: 'PHYSICAL THERAPIST',
-    quote:
-      'As someone who understands movement, I was impressed by Infinity\'s focus on mechanics. They fixed my squat form and eliminated the knee pain I\'d had for years.',
-    result: 'Pain-Free Squats',
-    image: '/hero.png',
-  },
-  {
-    name: 'Marcus Okonkwo',
-    role: 'MILITARY VETERAN',
-    quote:
-      'The holistic approach here is real, not just marketing. Training, nutrition, and recovery all work together. I\'m in the best shape of my life at 42.',
-    result: '+40lbs Bench Press',
-    image: '/services-bg.png',
-  },
-]
-
+const a = assets['1:2531']
+const david = {
+  name: 'David Chen',
+  role: 'Entrepreneur',
+  quote:
+    'I was exhausted from generic HIIT classes that left me injured and burned out. The periodized strength programming completely changed my physique. I dropped 14% body fat while adding 12lbs of lean muscle in under 6 months.',
+  result: '-14% Body Fat',
+  image: a.imgImage1,
+}
+const sarah = {
+  name: 'Sarah Jenkins',
+  role: 'Software Engineer',
+  quote:
+    'After 3 years of chronic back pain, I thought my lifting days were over. Infitnity’s biomechanics screening identified a severe imbalance in my kinetic chain. 12 weeks later, I’m completely pain-free and pulling 405lbs off the floor.',
+  result: '+85lbs Deadlift',
+  image: a.imgImage,
+}
+// The source design uses these two stories across its four carousel positions.
+const testimonials = [david, sarah, david, sarah]
 export default function Testimonials() {
-  const [trackIndex, setTrackIndex] = useState(1)
-  const [transitionEnabled, setTransitionEnabled] = useState(true)
-  const [cardWidth, setCardWidth] = useState(760)
-  const total = testimonials.length
-  const carouselItems = [
-    testimonials[total - 1],
-    ...testimonials,
-    testimonials[0],
-  ]
-  const current = (trackIndex - 1 + total) % total
-
+  const [current, setCurrent] = useState(1)
+  const [paused, setPaused] = useState(false)
   useEffect(() => {
-    const syncCardWidth = () => {
-      if (window.innerWidth <= 760) {
-        setCardWidth(Math.min(320, window.innerWidth - 48))
-        return
-      }
-
-      setCardWidth(Math.min(760, window.innerWidth - 220))
-    }
-
-    syncCardWidth()
-    window.addEventListener('resize', syncCardWidth)
-
-    return () => window.removeEventListener('resize', syncCardWidth)
-  }, [])
-
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setTrackIndex((index) => index + 1)
-    }, 5000)
-
-    return () => window.clearInterval(timer)
-  }, [total])
-
-  const handleTransitionEnd = () => {
-    if (trackIndex !== total + 1 && trackIndex !== 0) return
-
-    setTransitionEnabled(false)
-    setTrackIndex(trackIndex === total + 1 ? 1 : total)
-
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => setTransitionEnabled(true))
-    })
-  }
-
+    if (paused || window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+      return
+    const timer = window.setInterval(
+      () => setCurrent((index) => (index + 1) % testimonials.length),
+      6000,
+    )
+    return () => clearInterval(timer)
+  }, [paused])
   return (
-    <section className="testimonials">
-      <div className="testimonials__inner">
-        <span className="testimonials__label">The Proof</span>
-        <h2 className="testimonials__title">
-          WE MEASURE SUCCESS,{' '}
-          <span className="testimonials__title-muted">
-            IN METRICS NOT PROMISES.
-          </span>
+    <section
+      className="testimonials"
+      aria-label="Member results"
+      aria-roledescription="carousel"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setPaused(false)
+      }}
+    >
+      <div className="container">
+        <span className="eyebrow">The Proof</span>
+        <h2>
+          We Measure Success, <span>In Metrics Not Promises.</span>
         </h2>
-
-        <div className="testimonials__slider">
-          <div
-            className={`testimonials__track ${
-              transitionEnabled ? '' : 'testimonials__track--no-transition'
-            }`}
-            onTransitionEnd={handleTransitionEnd}
-            style={{
-              transform: `translateX(calc(50vw - ${
-                trackIndex * (cardWidth + 10) + cardWidth / 2
-              }px))`,
-            }}
-          >
-            {carouselItems.map((item, index) => (
-              <article
-                className={`testimonials__card ${
-                  index === trackIndex ? 'testimonials__card--active' : ''
-                }`}
-                key={`${item.name}-${index}`}
-                aria-hidden={index !== trackIndex}
-              >
-                <div className="testimonials__photo">
-                  <img src={item.image} alt="" />
-                  <span className="testimonials__corner testimonials__corner--tl" />
-                  <span className="testimonials__corner testimonials__corner--br" />
-                </div>
-
-                <div className="testimonials__body">
-                  <blockquote className="testimonials__quote">
-                    &quot;{item.quote}&quot;
-                  </blockquote>
-
-                  <div className="testimonials__meta">
-                    <div>
-                      <p className="testimonials__name">{item.name}</p>
-                      <p className="testimonials__role">{item.role}</p>
-                    </div>
-                    <div className="testimonials__divider" />
-                    <div>
-                      <span className="testimonials__result-label">KEY RESULT</span>
-                      <span className="testimonials__result-value">{item.result}</span>
-                    </div>
+      </div>
+      <div className="testimonials__slider">
+        <div
+          className="testimonials__track"
+          style={{ '--slide-index': current }}
+        >
+          {testimonials.map((item, index) => (
+            <article
+              className={`testimonials__card ${index === current ? 'is-active' : ''}`}
+              key={index}
+              aria-hidden={index !== current}
+              aria-label={`Testimonial ${index + 1} of 4`}
+            >
+              <div className="testimonials__photo">
+                <img src={item.image} alt="" loading="lazy" />
+              </div>
+              <div className="testimonials__body">
+                <img
+                  className="testimonials__quote-icon"
+                  src={a.imgIcon5}
+                  alt=""
+                />
+                <blockquote>“{item.quote}”</blockquote>
+                <div className="testimonials__meta">
+                  <div>
+                    <h3>{item.name}</h3>
+                    <p>{item.role}</p>
+                  </div>
+                  <div className="testimonials__result">
+                    <small>Key Result</small>
+                    <strong>{item.result}</strong>
                   </div>
                 </div>
-              </article>
-            ))}
-          </div>
+              </div>
+            </article>
+          ))}
         </div>
-
-        <div className="testimonials__footer" aria-label="Testimonial progress">
-          <div className="testimonials__segments">
-            {testimonials.map((item, index) => (
-              <span
-                key={item.name}
-                className={`testimonials__segment ${
-                  index === current ? 'testimonials__segment--active' : ''
-                }`}
-              />
-            ))}
-          </div>
-          <span className="testimonials__counter">
-            {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-          </span>
+      </div>
+      <div className="testimonials__controls">
+        <button
+          aria-label="Previous testimonial"
+          onClick={() => setCurrent((current + 3) % 4)}
+        >
+          ‹
+        </button>
+        <div className="testimonials__segments">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              aria-label={`Go to testimonial ${index + 1}`}
+              aria-pressed={index === current}
+              onClick={() => setCurrent(index)}
+            >
+              <span />
+            </button>
+          ))}
         </div>
+        <span className="testimonials__counter">
+          {String(current + 1).padStart(2, '0')} / 04
+        </span>
+        <button
+          aria-label="Next testimonial"
+          onClick={() => setCurrent((current + 1) % 4)}
+        >
+          ›
+        </button>
+        <button
+          aria-label={paused ? 'Play testimonials' : 'Pause testimonials'}
+          onClick={() => setPaused(!paused)}
+        >
+          {paused ? '▶' : 'Ⅱ'}
+        </button>
       </div>
     </section>
   )
