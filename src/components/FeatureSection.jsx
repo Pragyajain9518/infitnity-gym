@@ -13,16 +13,21 @@ export default function FeatureSection() {
         <div className="features__text">
           <h2 className="features__title">
             <span className="features__line features__line--white">STOP</span>
-            <span className="features__line features__line--muted">GUESSING.</span>
+            <span className="features__line features__line--muted">
+              GUESSING.
+            </span>
             <span className="features__line features__line--white">START</span>
-            <span className="features__line features__line--orange">PROGRESSING.</span>
+            <span className="features__line features__line--orange">
+              PROGRESSING.
+            </span>
           </h2>
 
           <p className="features__description">
             <span className="features__desc features__desc--mobile">
-              Tired of inconsistent workouts, no results, and trainers focused on
-              women squatting? You deserve better. We offer personalized coaching,
-              expert guidance, and a structure built around your body and lifestyle.
+              Tired of inconsistent workouts, no results, and trainers focused
+              on women squatting? You deserve better. We offer personalized
+              coaching, expert guidance, and a structure built around your body
+              and lifestyle.
             </span>
             <span className="features__desc features__desc--desktop">
               No more wandering the gym floor wondering what to do next. Our

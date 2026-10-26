@@ -1,4 +1,8 @@
 import './AboutUsPage.css'
+import assets from '../assets/design-assets.json'
+import { CallToAction, PageHero } from './Shared'
+
+const a = assets['1:988']
 
 const stats = [
   { value: '500+', label: 'Members' },
@@ -12,9 +16,8 @@ const minds = [
     name: 'Tejas',
     role: 'Founder',
     years: '10+ Years',
-    image: '/hero.png',
-    copy:
-      'Tejas believes fitness should do more than transform bodies. Through years of coaching, he has helped people build strength, confidence, and healthier lifestyles by focusing on what lasts: good movement, better habits, and long-term health.',
+    image: a.imgPhoto,
+    copy: 'Tejas believes fitness should do more than transform bodies. Through years of coaching, he has helped people build strength, confidence, and healthier lifestyles by focusing on what lasts: good movement, better habits, and long-term health.',
     tags: ['Strength & Conditioning', 'Habit-Building', 'Movement Quality'],
     quote:
       'Infitnity is my way of delivering coaching that prioritizes long-term health over short-term transformations.',
@@ -23,9 +26,8 @@ const minds = [
     name: 'Sruti',
     role: 'Co-Founder',
     years: '9+ Years',
-    image: '/services-bg.png',
-    copy:
-      'With a background in UX design and customer experience, Sruti understands that meaningful progress starts with feeling supported. She helps shape every part of the Infinity journey to be thoughtful, personal, and built around the individual.',
+    image: a.imgPhoto1,
+    copy: 'With a background in UX design and customer experience, Sruti understands that meaningful progress starts with feeling supported. She helps shape every part of the Infitnity journey to be thoughtful, personal, and built around the individual.',
     tags: ['Customer Experience', 'Community Building', 'Journey Design'],
     quote:
       'People achieve more when they feel seen, supported, and genuinely cared for.',
@@ -86,50 +88,52 @@ const stories = [
 export default function AboutUsPage() {
   return (
     <main className="about-us">
-      <section className="about-us__hero">
-        <div className="about-us__hero-bg" />
-        <div className="about-us__container about-us__hero-inner">
-          <div className="about-us__hero-copy">
-            <span className="about-us__eyebrow">About Infinity</span>
-            <h1>
-              Built for the long run. <span>Literally.</span>
-            </h1>
-            <p>
-              Infinity is a private training ecosystem for people who want
-              coaching that respects their body, lifestyle, and ambition.
-            </p>
-            <div className="about-us__actions">
-              <a className="about-us__button" href="#contact">
-                Contact Us
-              </a>
-              <a className="about-us__button about-us__button--ghost" href="#about-story">
-                Our Story
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        className="about-us-hero"
+        title={
+          <>
+            Built For The Long
+            <br />
+            Run. <span>Literally!</span>
+          </>
+        }
+      >
+        Infitnity pays attention. To the movement behind the exercise. The
+        habits behind the results. The years beyond the goal.
+        <br />
+        Fitness should do more than change the way your body looks. It should
+        support the way you live, move, and experience life for years to come.
+      </PageHero>
 
       <section className="about-us__story about-us__container" id="about-story">
         <div className="about-us__story-copy">
           <span className="about-us__eyebrow">Our Story</span>
           <h2>From a single room to a movement</h2>
           <p>
-       Infitnity began as a single room with a singular focus: to create a space where athletes and individuals could train without distraction. Over the years, we've grown into a premium facility, but our philosophy remains the same:community-first, results-driven, and built on the belief that every body deserves a personalized path to evolution.
+            Infitnity began as a single room with a singular focus: to create a
+            space where athletes and individuals could train without
+            distraction. Over the years, we've grown into a premium facility,
+            but our philosophy remains the same:community-first, results-driven,
+            and built on the belief that every body deserves a personalized path
+            to evolution.
           </p>
           <div className="about-us__mini-stats">
             <div>
               <strong>10+</strong>
-              <span>Years coaching</span>
+              <span>Years of Elite Training</span>
             </div>
             <div>
               <strong>500+</strong>
-              <span>Members transformed</span>
+              <span>Members Transformed</span>
             </div>
           </div>
         </div>
         <div className="about-us__story-media">
-          <img src="/hero.png" alt="" />
+          <img
+            src={a.imgStoryImage}
+            alt="Coaches at the Infitnity studio"
+            loading="lazy"
+          />
         </div>
       </section>
 
@@ -154,7 +158,7 @@ export default function AboutUsPage() {
         <div className="about-us__mind-grid">
           {minds.map((person) => (
             <article className="about-us__mind" key={person.name}>
-              <img src={person.image} alt="" />
+              <img src={person.image} alt={person.name} loading="lazy" />
               <h3>
                 {person.name}
                 <span className="about-us__mind-years">{person.years}</span>
@@ -166,7 +170,9 @@ export default function AboutUsPage() {
                   <li key={tag}>{tag}</li>
                 ))}
               </ul>
-              <p className="about-us__mind-quote">&ldquo;{person.quote}&rdquo;</p>
+              <p className="about-us__mind-quote">
+                &ldquo;{person.quote}&rdquo;
+              </p>
             </article>
           ))}
         </div>
@@ -177,19 +183,42 @@ export default function AboutUsPage() {
         <h2>World-class equipment. Unmatched environment.</h2>
         <div className="about-us__equipment-layout">
           <figure className="about-us__equipment-feature">
-            <img src="/about-hero.png" alt="" />
+            <img
+              src={a.imgHeroImage}
+              alt="Infitnity training facility"
+              loading="lazy"
+            />
           </figure>
 
           <div className="about-us__equipment-grid">
-            <img src="/services-bg.png" alt="" />
-            <img src="/hero.png" alt="" />
-            <img src="/services-bg.png" alt="" />
-            <img src="/hero.png" alt="" />
+            <img
+              src={a.imgRectangle}
+              alt="Training equipment at the studio"
+              loading="lazy"
+            />
+            <img
+              src={a.imgRectangle1}
+              alt="Infitnity training space"
+              loading="lazy"
+            />
+            <img
+              src={a.imgRectangle}
+              alt="Training equipment at the studio"
+              loading="lazy"
+            />
+            <img
+              src={a.imgRectangle1}
+              alt="Infitnity training space"
+              loading="lazy"
+            />
           </div>
 
           <ul>
             {facility.map((item) => (
-              <li key={item}>{item}</li>
+              <li key={item}>
+                <img src={a.imgArrowRight} alt="" />
+                {item}
+              </li>
             ))}
           </ul>
         </div>
@@ -204,7 +233,11 @@ export default function AboutUsPage() {
             that empower people to build strength, confidence, and lasting
             health for life.
           </p>
-          <img src="/hero.png" alt="" />
+          <img
+            src={a.imgRectangle2}
+            alt="Strength training at Infitnity"
+            loading="lazy"
+          />
         </article>
         <article>
           <span className="about-us__eyebrow">Our Vision</span>
@@ -213,13 +246,17 @@ export default function AboutUsPage() {
             To create a world where people build a stronger relationship with
             their body, making lifelong health the standard, not the exception.
           </p>
-          <img src="/services-bg.png" alt="" />
+          <img
+            src={a.imgRectangle3}
+            alt="A premium training environment"
+            loading="lazy"
+          />
         </article>
       </section>
 
       <section className="about-us__standards">
         <div className="about-us__container">
-          <span className="about-us__eyebrow">Principles</span>
+          <span className="about-us__eyebrow">Our Values</span>
           <h2>The standards we hold ourselves to</h2>
           <div className="about-us__standard-grid">
             {standards.map((standard, index) => (
@@ -239,7 +276,7 @@ export default function AboutUsPage() {
         <div className="about-us__story-card-grid">
           {stories.map((story) => (
             <article className="about-us__story-card" key={story.name}>
-              <span aria-hidden="true">&rdquo;</span>
+              <img className="about-us__quote-icon" src={a.imgQuote} alt="" />
               <p>&ldquo;{story.quote}&rdquo;</p>
               <strong>{story.name}</strong>
               <em>{story.role}</em>
@@ -249,15 +286,7 @@ export default function AboutUsPage() {
         </div>
       </section>
 
-      <section className="about-us__join">
-        <div className="about-us__container">
-          <h2>Join our Infinity family.</h2>
-          <p>Get a private consultation and start with a plan built for you.</p>
-          <a className="about-us__button" href="#contact">
-            Join Us
-          </a>
-        </div>
-      </section>
+      <CallToAction title="Join Our Infitnity Family" />
     </main>
   )
 }

@@ -1,98 +1,97 @@
 .value {
-  background: var(--black);
-  padding: 6rem 4rem;
+  padding-block: 100px;
 }
-
 .value__inner {
-  max-width: 1200px;
-  margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  grid-template-columns: 497fr 633fr;
+  gap: 70px;
   align-items: start;
 }
-
-.value__title {
-  display: flex;
-  flex-direction: column;
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: 0.02em;
-  margin-bottom: 2rem;
+.value h2 {
+  text-transform: uppercase;
+  font-size: 60px;
+  line-height: 1;
+  letter-spacing: -2.7px;
+  margin-bottom: 40px;
 }
-
-.value__highlight {
+.value h2 span {
   color: var(--orange);
 }
-
 .value__description {
-  font-size: clamp(0.875rem, 1.5vw, 1rem);
-  color: var(--gray);
-  line-height: 1.8;
-  max-width: 480px;
+  color: #ffffffb3;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 300;
 }
-
 .value__list {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 40px;
 }
-
-.value__item {
+.value__list li {
   display: flex;
-  gap: 1.25rem;
+  gap: 32px;
   align-items: flex-start;
 }
-
 .value__icon {
-  flex-shrink: 0;
-  color: rgba(255, 255, 255, 0.3);
-  margin-top: 0.1rem;
+  width: 48px;
+  height: 48px;
+  border: 1px solid #ffffff1a;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  flex: none;
 }
-
-.value__item-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  margin-bottom: 0.5rem;
+.value__list h3 {
+  font-size: 36px;
+  letter-spacing: -1.4px;
+  color: #ffffffe6;
+  margin-bottom: 12px;
 }
-
-.value__item-desc {
-  font-size: 0.875rem;
-  color: var(--gray);
-  line-height: 1.6;
+.value__list p {
+  color: #ffffff80;
+  font-size: 20px;
+  line-height: 32.5px;
+  font-weight: 300;
 }
-
-@media (max-width: 768px) {
+@media (max-width: 760px) {
   .value {
-    padding: 3rem 1.5rem;
+    padding-block: 80px;
   }
-
   .value__inner {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 50px;
   }
-
-  .value__title {
-    font-size: clamp(1.5rem, 7vw, 2rem);
-    line-height: 1.25;
+  .value h2 {
+    font-size: 28px;
+    line-height: 1;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
   }
-
+  .desktop-break {
+    display: none;
+  }
   .value__description {
-    font-size: 0.8125rem;
-    max-width: 100%;
+    font-size: 16px;
+    line-height: 24px;
   }
-
   .value__list {
-    gap: 1.5rem;
+    gap: 24px;
   }
-
-  .value__item-title {
-    font-size: 0.9375rem;
+  .value__list li {
+    gap: 20px;
   }
-
-  .value__item-desc {
-    font-size: 0.75rem;
+  .value__icon {
+    width: 40px;
+    height: 40px;
+  }
+  .value__list h3 {
+    font-size: 22px;
+    letter-spacing: -0.6px;
+    margin-bottom: 8px;
+  }
+  .value__list p {
+    font-size: 16px;
+    line-height: 24px;
   }
 }
